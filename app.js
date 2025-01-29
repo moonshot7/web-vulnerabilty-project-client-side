@@ -18,11 +18,9 @@ app.use(
 );
 
 // Serve static files
-app.use('/private/styles', express.static('private/protected')); // For /private/protected/style.css
-app.use('/public/styles', express.static('public')); // For /public/style.css
-
-// Serve other static assets
 app.use('/public', express.static('public'));
+app.use('/private/protected', express.static('private/protected')); // For /private/protected/style.css
+
 app.use('/protected', (req, res, next) => {
   if (!req.session.user) {
     return res.status(401).send('Unauthorized');

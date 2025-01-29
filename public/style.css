@@ -42,13 +42,13 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background: #007bff;
+    background: #4CAF50;
     color: white;
     transition: background 0.3s ease;
   }
   
   button:hover {
-    background: #0056b3;
+    background: #4CAF50;
   }
   
   p {
@@ -58,7 +58,7 @@ body {
   
   a {
     text-decoration: none;
-    color: #007bff;
+    color: #4CAF50;
     font-weight: bold;
   }
   
