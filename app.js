@@ -2,6 +2,7 @@
 const express = require('express');
 const session = require('express-session');
 const fs = require('fs');
+const bcrypt = require('bcrypt');
 
 const app = express();
 const PORT = 3000;
@@ -56,7 +57,7 @@ app.get('/', (req, res) => {
   res.redirect('/protected/index.html');
 });
 
-// Register route (without hashing password)
+// Register route
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
   
@@ -72,8 +73,9 @@ app.post('/register', async (req, res) => {
       return res.status(400).json({ error: 'User already exists' });
     }
 
-    // Save password as plain text
-    data.users.push({ username, password });
+    // Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
+    data.users.push({ username, password: hashedPassword });
     await writeData(data);
 
     res.status(201).json({ message: 'User registered successfully' });
@@ -82,15 +84,15 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// Login route (without bcrypt compare)
+// Login route
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
     const data = await readData();
-    const user = data.users.find((u) => u.username === username && u.password === password);
+    const user = data.users.find((u) => u.username === username);
 
-    if (user) {
+    if (user && (await bcrypt.compare(password, user.password))) {
       req.session.user = user;
       return res.status(200).json({ message: 'Login successful' });
     } else {
