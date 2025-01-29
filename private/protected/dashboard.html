@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/private/protected/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Task Manager</h1>
+    
+    <!-- Task Form -->
+    <form id="task-form">
+      <input type="text" id="task-id" placeholder="Task ID" disabled>
+      <input type="text" id="task-desc" placeholder="Task Description" required>
+      <button type="submit">Add Task</button>
+      <button type="button" id="edit-btn" disabled>Edit Task</button>
+      <button type="button" id="delete-btn" disabled>Delete Task</button>
+    </form>
+
+    <!-- Task List -->
+    <ul id="task-list"></ul>
+
+    <a href="/logout" class="logout-btn">Logout</a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
